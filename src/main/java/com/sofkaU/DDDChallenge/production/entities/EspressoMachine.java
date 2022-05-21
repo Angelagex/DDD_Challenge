@@ -9,7 +9,6 @@ import java.util.Objects;
 
 public class EspressoMachine extends Entity<EspressoMachineId> {
 
-
     private Brand brand;
     private InUse inUse;
 
@@ -20,11 +19,11 @@ public class EspressoMachine extends Entity<EspressoMachineId> {
     }
 
     public void UpdateBrand(Brand brand) {
-        this.brand = Objects.requireNonNull(brand);
+        this.brand = Objects.requireNonNull(brand, "Brand can´t be null");
     }
 
     public void UpdateInUse(InUse inUse) {
-        this.inUse = Objects.requireNonNull(inUse);
+        this.inUse = Objects.requireNonNull(inUse, "InUse can´t be null");
     }
 
     public Brand Brand() {

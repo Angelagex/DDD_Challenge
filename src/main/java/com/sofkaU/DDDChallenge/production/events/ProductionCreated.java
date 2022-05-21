@@ -4,7 +4,7 @@ import co.com.sofka.domain.generic.DomainEvent;
 import com.sofkaU.DDDChallenge.generic.values.StoreName;
 
 public class ProductionCreated extends DomainEvent {
-    private StoreName storeName;
+    private final StoreName storeName;
 
     public ProductionCreated(StoreName storeName) {
         super("dddchallenge.production.productioncreated");
