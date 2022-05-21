@@ -9,6 +9,7 @@ import com.sofkaU.DDDChallenge.production.values.*;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 public class Production extends AggregateEvent<ProductionId> {
@@ -86,6 +87,20 @@ public class Production extends AggregateEvent<ProductionId> {
 
     public void UpdateMixerInUse(MixerId entityId, InUse inUse){
         appendChange(new MixerInUseUpdated(entityId, inUse)).apply();
+    }
+
+    //Queries
+
+    public Optional<EspressoMachine> getEspressoMachineById(EspressoMachineId entityId){
+        return espressoMachines().stream().filter(m -> m.identity().equals(entityId)).findFirst();
+    }
+
+    public Optional<Barista> getBaristaById(BaristaId entityId){
+        return baristas().stream().filter(m -> m.identity().equals(entityId)).findFirst();
+    }
+
+    public Optional<Mixer> getMixerById(MixerId entityId){
+        return mixers().stream().filter(m -> m.identity().equals(entityId)).findFirst();
     }
 
     //Retrievers
