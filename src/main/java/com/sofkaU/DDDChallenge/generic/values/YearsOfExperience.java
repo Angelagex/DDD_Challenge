@@ -13,6 +13,9 @@ public class YearsOfExperience implements ValueObject<String> {
         if (this.value.isBlank()) {
             throw new IllegalArgumentException("YearsOfExperience can´t be blank");
         }
+        if (Double.parseDouble(this.value)<1){
+            throw new IllegalArgumentException("YearsOfExperience can't be lower than 1");
+        }
     }
 
     public String value() {

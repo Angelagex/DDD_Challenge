@@ -8,13 +8,11 @@ import com.sofkaU.DDDChallenge.logistic.values.DeliveryManId;
 public class DeliveryManAdded extends DomainEvent {
     private final DeliveryManId entityId;
     private final Name name;
-    private final YearsOfExperience yearsOfExperience;
 
     public DeliveryManAdded(DeliveryManId entityId, Name name) {
         super("dddchallenge.logistic.deliverymanadded");
         this.entityId = entityId;
         this.name = name;
-        this.yearsOfExperience = yearsOfExperience;
     }
 
     public DeliveryManId getEntityId() {
@@ -25,7 +23,4 @@ public class DeliveryManAdded extends DomainEvent {
         return name;
     }
 
-    public YearsOfExperience getYearsOfExperience() {
-        return yearsOfExperience;
-    }
 }
