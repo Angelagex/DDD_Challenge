@@ -11,7 +11,7 @@ public class WaiterAdded extends DomainEvent {
     private final Name name;
     private final YearsOfExperience yearsOfExperience;
 
-    public WaiterAdded(WaiterId entityId, Name name, YearsOfExperience yearsOfExperience) {
+    public WaiterAdded(WaiterId entityId, Name name) {
         super("dddchallenge.logistic.waiteradded");
         this.entityId = entityId;
         this.name = name;

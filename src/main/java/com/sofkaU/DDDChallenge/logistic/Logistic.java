@@ -2,12 +2,14 @@ package com.sofkaU.DDDChallenge.logistic;
 
 
 import co.com.sofka.domain.generic.AggregateEvent;
+import co.com.sofka.domain.generic.DomainEvent;
 import com.sofkaU.DDDChallenge.generic.values.*;
 import com.sofkaU.DDDChallenge.logistic.entities.*;
 import com.sofkaU.DDDChallenge.logistic.events.*;
 import com.sofkaU.DDDChallenge.logistic.values.*;
 
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -19,10 +21,22 @@ public class Logistic extends AggregateEvent<LogisticId> {
     protected Set<DeliveryMan> deliverers;
 
 
+    //Constructors
+
     public Logistic(LogisticId entityId, StoreName storeName) {
         super(entityId);
         appendChange(new LogisticCreated(storeName)).apply();
+    }
 
+    public Logistic(LogisticId logisticId){
+        super(logisticId);
+        subscribe(new LogisticChange(this));
+    }
+
+    public static Logistic from(LogisticId logisticId, List<DomainEvent> events){
+        Logistic logistic = new Logistic(logisticId);
+        events.forEach(logistic::applyEvent);
+        return logistic;
     }
 
     //Behaviours
@@ -38,18 +52,16 @@ public class Logistic extends AggregateEvent<LogisticId> {
         appendChange(new BodyguardAdded(entityId, name, yearsOfExperience)).apply();
     }
 
-    public void AddWaiter(WaiterId entityId, Name name, YearsOfExperience yearsOfExperience){
+    public void AddWaiter(WaiterId entityId, Name name){
         Objects.requireNonNull(entityId,"WaiterId can't be null");
         Objects.requireNonNull(name, "Name can't be null");
-        Objects.requireNonNull(yearsOfExperience, "YearsOfExperience can't be null");
-        appendChange(new WaiterAdded(entityId, name, yearsOfExperience)).apply();
+        appendChange(new WaiterAdded(entityId, name)).apply();
     }
 
-    public void AddDeliveryMan(DeliveryManId entityId, Name name, YearsOfExperience yearsOfExperience){
+    public void AddDeliveryMan(DeliveryManId entityId, Name name){
         Objects.requireNonNull(entityId,"DeliveryManId can't be null");
         Objects.requireNonNull(name, "Name can't be null");
-        Objects.requireNonNull(yearsOfExperience, "YearsOfExperience can't be null");
-        appendChange(new DeliveryManAdded(entityId, name, yearsOfExperience)).apply();
+        appendChange(new DeliveryManAdded(entityId, name)).apply();
     }
 
     public void UpdateBodyguardName(BodyguardId entityId, Name name){
