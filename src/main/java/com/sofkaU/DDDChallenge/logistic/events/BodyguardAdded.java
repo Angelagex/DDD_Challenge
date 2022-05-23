@@ -12,7 +12,7 @@ public class BodyguardAdded extends DomainEvent {
     private final YearsOfExperience yearsOfExperience;
 
     public BodyguardAdded(BodyguardId entityId, Name name, YearsOfExperience yearsOfExperience) {
-        super("dddchallenge.logistic.bodymanadded");
+        super("dddchallenge.logistic.bodyguardadded");
         this.entityId = entityId;
         this.name = name;
         this.yearsOfExperience = yearsOfExperience;

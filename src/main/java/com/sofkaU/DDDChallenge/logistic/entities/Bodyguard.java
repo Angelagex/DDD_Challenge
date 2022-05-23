@@ -12,10 +12,11 @@ public class Bodyguard extends Entity<BodyguardId> {
     private YearsOfExperience yearsOfExperience;
     private Name name;
 
-    public Bodyguard(BodyguardId entityId, YearsOfExperience yearsOfExperience, Name name) {
+    public Bodyguard(BodyguardId entityId,  Name name, YearsOfExperience yearsOfExperience) {
         super(entityId);
-        this.yearsOfExperience = yearsOfExperience;
         this.name = name;
+        this.yearsOfExperience = yearsOfExperience;
+
     }
     public void UpdateYearsOfExperience(YearsOfExperience yearsOfExperience) {
         this.yearsOfExperience = Objects.requireNonNull(yearsOfExperience, "YearsOfExperience can´t be null");

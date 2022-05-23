@@ -1,36 +1,36 @@
 package com.sofkaU.DDDChallenge.logistic;
 
 import co.com.sofka.domain.generic.EventChange;
-import com.sofkaU.DDDChallenge.logistic.entities.*;
+import com.sofkaU.DDDChallenge.logistic.entities.Bodyguard;
+import com.sofkaU.DDDChallenge.logistic.entities.DeliveryMan;
+import com.sofkaU.DDDChallenge.logistic.entities.Waiter;
 import com.sofkaU.DDDChallenge.logistic.events.*;
-import com.sofkaU.DDDChallenge.production.events.BaristaNameUpdated;
-
 
 import java.util.HashSet;
 
 public class LogisticChange extends EventChange {
     public LogisticChange(Logistic logistic) {
 
-        apply( (LogisticCreated event) -> {
+        apply((LogisticCreated event) -> {
             logistic.storeName = event.getStoreName();
             logistic.bodyguards = new HashSet<>();
             logistic.waiters = new HashSet<>();
             logistic.deliverers = new HashSet<>();
         });
 
-        apply( (StoreNameUpdated event) -> {
+        apply((StoreNameUpdated event) -> {
             logistic.storeName = event.getStoreName();
         });
 
-        apply( (BodyguardAdded event) -> {
-            var bodyguard = logistic.bodyguards().size();
-            if(bodyguard >= 2){
+        apply((BodyguardAdded event) -> {
+            var nBodyguard = logistic.bodyguards().size();
+            if (nBodyguard >= 2) {
                 throw new IllegalArgumentException("You can only have 2 Bodyguards");
             }
             logistic.bodyguards.add(new Bodyguard(
                     event.getEntityId(),
-                    event.getYearsOfExperience(),
-                    event.getName()
+                    event.getName(),
+                    event.getYearsOfExperience()
             ));
         });
 
@@ -46,9 +46,9 @@ public class LogisticChange extends EventChange {
             bodyguard.UpdateYearsOfExperience(event.getYearsOfExperience());
         });
 
-        apply( (DeliveryManAdded event) -> {
+        apply((DeliveryManAdded event) -> {
             var delivery = logistic.deliverers().size();
-            if(delivery >= 3){
+            if (delivery >= 3) {
                 throw new IllegalArgumentException("You can only have 3 Deliverers");
             }
             logistic.deliverers.add(new DeliveryMan(
@@ -63,9 +63,9 @@ public class LogisticChange extends EventChange {
             delivery.UpdateName(event.getName());
         });
 
-        apply( (WaiterAdded event) -> {
+        apply((WaiterAdded event) -> {
             var waiter = logistic.waiters().size();
-            if(waiter >= 4){
+            if (waiter >= 4) {
                 throw new IllegalArgumentException("You can only have 4 Waiters");
             }
             logistic.waiters.add(new Waiter(

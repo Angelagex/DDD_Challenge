@@ -22,8 +22,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
-public class AddBodyguardUseCaseTest {
-    private final String RootId = "432";
+class AddBodyguardUseCaseTest {
 
     @Mock
     private DomainEventRepository repository;
@@ -31,10 +30,11 @@ public class AddBodyguardUseCaseTest {
     @Test
     void addBodyguard(){
 
-        var command = new AddBodyguard(LogisticId.of(RootId), BodyguardId.of("Id2"), new Name("Pedro"), new YearsOfExperience("4"));
+        String rootId = "4321";
+        var command = new AddBodyguard(LogisticId.of(rootId), BodyguardId.of("Id2"), new Name("Pedro"), new YearsOfExperience("4"));
         var useCase = new AddBodyguardUseCase();
 
-        Mockito.when(repository.getEventsBy(RootId)).thenReturn(List.of(
+        Mockito.when(repository.getEventsBy(rootId)).thenReturn(List.of(
                 new LogisticCreated(
                         new StoreName("Store")
                 )
@@ -44,7 +44,7 @@ public class AddBodyguardUseCaseTest {
 
         var events = UseCaseHandler
                 .getInstance()
-                .setIdentifyExecutor(RootId)
+                .setIdentifyExecutor(rootId)
                 .syncExecutor(useCase, new RequestCommand<>(command))
                 .orElseThrow(() -> new IllegalArgumentException("Something went wrong adding a Bodyguard"))
                 .getDomainEvents();
